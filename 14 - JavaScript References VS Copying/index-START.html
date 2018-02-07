@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans (byVal)
+    let age = 100
+    let age2= age
+    // console.log(age, age2)
+    age = 101
+    // console.log(age, age2)
+
+    // Let's say we have an array (byRef)
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const team = players
+    // console.log(players, team)
+    players[0] = 'ZAP'
+    // console.log(players, team)
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+    // So, how do we fix this? We take a copy instead!
+    const team2 = players.concat()  
+    // or  .slice()
+    // or [].concat(players)
+    // console.log(players, team2)
+    // or use the new ES6 Spread
+    const team3 = [...players]
+    players[0] = 'shazbot'
+    // console.log(players, team3)
+    const team4 = Array.from(players)
+    players[0] = 'freak-a-zoid'
+    // console.log(players, team4)
+
+    // The same thing goes for objects, let's say we have a person object
+    const person = {name:'Clark Kent', age:34}
+    const hero = person
+    person.title = 'Superman'
+    // console.log(person, hero)
+    const hero2 = Object.assign({}, person, {title:'Supertastic Man!'})
+    console.log(person, hero2)
+    ///const hero3 = {...person} maybe in the future ???
+    // We will hopefully soon see the object ...spread
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+  </script>
+
+</body>
+</html>

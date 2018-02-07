@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size:cover;
+      font-family:'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+      transform: rotate(90deg)
+    }
+
+    .hand {
+      width:50%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+      transform-origin: right;  /* or 100% instead of default 50% */
+      /*transform: rotate(90deg);*/
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.5, 1);
+      /*
+      left: 50%;
+      transform-origin:left;       or 0% instead of default 50% 
+      transform: rotate(-90deg)
+      */
+    }
+
+  </style>
+
+  <script>
+
+    const shand = document.querySelector('.second-hand')
+    const mhand = document.querySelector('.min-hand')
+    const hhand = document.querySelector('.hour-hand')
+
+    function setDate() {
+      const now = new Date()
+      const secs = now.getSeconds();       const secsDegrees = secs/60*360
+      const mins = now.getMinutes();       const minsDegrees = mins/60*360
+      const hours= now.getHours();         const hrsDegrees = hours/12*360
+      
+      shand.style.transform = 'rotate('+secsDegrees+'deg)'
+      mhand.style.transform = 'rotate('+minsDegrees+'deg)'
+      hhand.style.transform = 'rotate('+hrsDegrees+'deg)'
+      //console.log(mins)
+    }
+    setInterval(setDate,1000)
+
+  </script>
+</body>
+</html>
